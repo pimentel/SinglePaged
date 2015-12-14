@@ -27,16 +27,20 @@ $.extend($.easing,
 
         //attatch click listeners
     	navItems.on('click', function(event){
-    		event.preventDefault();
-            var navID = $(this).attr("href").substring(1);
-            disableScrollFn = true;
-            activateNav(navID);
-            populateDestinations(); //recalculate these!
-        	$('html,body').animate({scrollTop: sections[navID] - settings.scrollToOffset},
-                settings.scrollSpeed, "easeInOutExpo", function(){
-                    disableScrollFn = false;
-                }
-            );
+        if ($(this).attr("href").charAt(0) == '#'){
+      		event.preventDefault();
+              var navID = $(this).attr("href").substring(1);
+              disableScrollFn = true;
+              activateNav(navID);
+              populateDestinations(); //recalculate these!
+          	$('html,body').animate({scrollTop: sections[navID] - settings.scrollToOffset},
+                  settings.scrollSpeed, "easeInOutExpo", function(){
+                      disableScrollFn = false;
+                  }
+              );
+        } else {
+          // intentionally empty
+        }
     	});
 
         //populate lookup of clicable elements and destination sections
@@ -57,9 +61,11 @@ $.extend($.easing,
 
     function populateDestinations() {
         navItems.each(function(){
+          if ($(this).attr("href").charAt(0) == '#'){
             var scrollID = $(this).attr('href').substring(1);
             navs[scrollID] = (settings.activateParentNode)? this.parentNode : this;
             sections[scrollID] = $(document.getElementById(scrollID)).offset().top;
+          }
         });
     }
 
@@ -84,12 +90,15 @@ $(document).ready(function (){
         if ($(this).attr("href").charAt(0) == '#'){
             $(this).on('click', function(event) {
         		event.preventDefault();
-                var target = $(event.target).closest("a");
-                var targetHight =  $(target.attr("href")).offset().top
+              var target = $(event.target).closest("a");
+              var targetHight =  $(target.attr("href")).offset().top
             	$('html,body').animate({scrollTop: targetHight - 170}, 800, "easeInOutExpo");
             });
+        } else {
+          // $(this).on('click', function() {
+          //   window.location = $(this).attr('href');
+          // })
         }
 	});
 
 });
-
