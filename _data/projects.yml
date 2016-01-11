@@ -27,6 +27,6 @@
   title: "paper"
   web: "https://ccb.jhu.edu/software/tophat/index.shtml"
 - headline: "atom-r-exec"
-  repo: "https://github.com/hafen/atom-r-exec"
+  repo: "https://github.com/pimentel/atom-r-exec"
   description: "atom-r-exec allows <a href='https://atom.io/'>atom.io</a> to send R code to R.app, iTerm, Terminal, or a web browser. I rewrote and re-factored much of the code fixing a few bugs and adding functionality."
   web: "https://atom.io/packages/r-exec"
